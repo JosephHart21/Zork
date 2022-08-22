@@ -7,7 +7,7 @@ namespace Zork
         static void Main()
         {
 
-            Console.WriteLine("Welcome to Zork");
+            Console.WriteLine("Welcome to Zork!");
 
         }
     }
