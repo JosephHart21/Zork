@@ -4,13 +4,17 @@ namespace Zork
 {
     class Program
     {
-    	static void Main()
-    	{
-      		Console.WriteLine("Welcome to Zork!");
+        static void Main()
+        {
+        	Console.WriteLine("Welcome to Zork!");
 			
-		string inputString = Console.ReadLine().Trim();
-			
-		Commands command; command = ToCommand(inputString);
+		bool isRunning = true;
+		while (isRunning)
+		{
+			Console.Write("> ");
+			string inputString = Console.ReadLine().Trim();
+			Commands command; command = ToCommand(inputString);
+		}
 
             	switch (command)
 			{
@@ -25,8 +29,7 @@ namespace Zork
 					
                 default: Console.WriteLine($"'{inputString}' is not a recognized command."); 
                     break;
-            }
-			
+            	}	
         }
 		
 	static Commands ToCommand(string commmandString)
