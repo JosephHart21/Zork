@@ -14,22 +14,23 @@ namespace Zork
 			Console.Write("> ");
 			string inputString = Console.ReadLine().Trim();
 			Commands command; command = ToCommand(inputString);
-		}
-
-            	switch (command)
+				
+			string outputString;
+			switch (command)
 			{
-                case Commands.Quit: Console.WriteLine("Thank you for playing."); 
-                    break;
-					
-                case Commands.Look: Console.WriteLine("This is an open field west of a white house, with a boarded front door.\nA rubber mat saying 'Welcom to Zork!' lies by the door."); 
-                    break;
-					
-                case Commands.Unknown: Console.WriteLine("Must type command"); 
-                    break;
-					
-                default: Console.WriteLine($"'{inputString}' is not a recognized command."); 
-                    break;
-            	}	
+				case command.Quit: 
+					outputString = "Thank you for playing!"; 
+					isRunning = false;
+					break;
+						
+						
+				default: outputString = "Unkown command.";
+					break;
+			}
+				
+			Console.WriteLine(outputString);
+				
+		}
         }
 		
 	static Commands ToCommand(string commmandString)
@@ -37,6 +38,6 @@ namespace Zork
 		
 		return Enum.TryParse(commmandString, true, out Commands result) ? result : Commands.Unkown;
 			
-	}	
+	}
     }
 }
