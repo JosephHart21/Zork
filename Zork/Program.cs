@@ -6,7 +6,7 @@ namespace Zork
     {
         static void Main()
         {
-        	Console.WriteLine("Welcome to Zork!");
+            	Console.WriteLine("Welcome to Zork!");
 			
 		bool isRunning = true;
 		while (isRunning)
@@ -21,6 +21,17 @@ namespace Zork
 				case command.Quit: 
 					outputString = "Thank you for playing!"; 
 					isRunning = false;
+					break;
+						
+				case command.Look:
+					outputString = "This is an open field west of a white house, with a boarded front door.\nA rubber mat says 'Welcome to Zork!'";
+					break;
+						
+				case command.North:
+				case command.West:
+				case command.South:
+				case command.East:
+					outputString = $"You moved {command}.";
 					break;
 						
 						
