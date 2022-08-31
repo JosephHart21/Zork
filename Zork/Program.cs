@@ -4,15 +4,15 @@ namespace Zork
 {
     class Program
     {
-        static void Main()
-        {
-            Console.WriteLine("Welcome to Zork!");
+    	static void Main()
+    	{
+      		Console.WriteLine("Welcome to Zork!");
 			
-			string inputString = Console.ReadLine().Trim();
+		string inputString = Console.ReadLine().Trim();
 			
-			Commands command; command = ToCommand(inputString);
+		Commands command; command = ToCommand(inputString);
 
-            switch (commad)
+            	switch (command)
 			{
                 case Commands.Quit: Console.WriteLine("Thank you for playing."); 
                     break;
@@ -29,20 +29,11 @@ namespace Zork
 			
         }
 		
-		static Commands ToCommand(string commmandString)
-		{
+	static Commands ToCommand(string commmandString)
+	{
 		
-			if(Enum.TryParse<Commands>(commmandString, true, out Commands command))
-			{
-				return command;
-			}
-			else
-			{
-				return Commands.Unknown;
-			}
+		return Enum.TryParse(commmandString, true, out Commands result) ? result : Commands.Unkown;
 			
-		}
-		
+	}	
     }
-	
 }
