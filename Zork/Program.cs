@@ -5,11 +5,7 @@ namespace Zork
 {
     class Program
     {
-		private static readonly string[,] _rooms = {
-			{ "Rocky Trail", "South of House", "Canyon View"},
-			{ "Forest", "West of House", "Behind House", },
-			{ "Dense Woods","North of House", "Clearing"}
-		};
+		private static readonly string[] _rooms = {"Rocky Trail", "South of House", "Canyon View"};
 
         private static int _currentRoom = 1;
 
@@ -54,24 +50,18 @@ namespace Zork
 					default: outputString = "Unkown command.";
 						break;
 				}
-				
 				Console.WriteLine(outputString);
-
 			}
         }
 		
 		static Commands ToCommand(string commmandString)
 		{
-		
 			return Enum.TryParse(commmandString, true, out Commands result) ? result : Commands.Unknown;
-			
 		}
 
 		private static bool Move(Commands command)
 		{
-
 			bool didMove = false;
-
 			switch (command)
 			{
 				case Commands.North:
@@ -90,10 +80,7 @@ namespace Zork
                     didMove = true;
                     break;
 			}
-
 			return didMove;
-
 		}
-
     }
 }
