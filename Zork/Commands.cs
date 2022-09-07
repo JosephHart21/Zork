@@ -1,4 +1,4 @@
-namesapce Zork
+namespace Zork
 {
 	public enum Commands
 	{
