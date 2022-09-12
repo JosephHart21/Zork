@@ -10,5 +10,4 @@ namespace Zork
 		East,
 		Unknown
 	}
-
 }
