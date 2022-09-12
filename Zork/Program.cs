@@ -1,13 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Zork
 {
-    class Program
-    {
-		private static readonly string[] _rooms = {"Rocky Trail", "South of House", "Canyon View"};
-
-        private static int _currentRoom = 1;
+	class Program
+	{
 
         static void Main()
         {
@@ -16,7 +14,7 @@ namespace Zork
 			bool isRunning = true;
 			while (isRunning)
 			{
-				Console.Write($"You are in {_rooms[_currentRoom]}\n> ");
+				Console.Write($"You are in {CurrentRoom}\n> ");
 				string inputString = Console.ReadLine().Trim();
 				Commands command; command = ToCommand(inputString);
 				
@@ -64,23 +62,56 @@ namespace Zork
 			bool didMove = false;
 			switch (command)
 			{
-				case Commands.North:
-					break;
-
-				case Commands.South:
-					break;
-
-				case Commands.West when _currentRoom > 0:
-                    _currentRoom--;
+				case Commands.North when _location.Row < _rooms.GetLength(0) - 1:
+					_location.Column++;
                     didMove = true;
                     break;
 
-				case Commands.East when _currentRoom < _rooms.Length -1:
-                    _currentRoom++;
+                case Commands.South when _location.Row > 0:
+					_location.Row--;
                     didMove = true;
                     break;
+
+                case Commands.East when _location.Column < _rooms.GetLength(1) -1:
+					_location.Column++;
+                    didMove = true;
+                    break;
+
+                case Commands.West when _location.Column > 0:
+					_location.Column--;
+                    didMove = true;
+                    break;
+                    
 			}
 			return didMove;
 		}
+
+
+        private static readonly string[,] _rooms = {
+            { "Rocky Trail", "South of House", "Canyon View" },
+            { "Forest","West of House","Behind House"},
+            { "Dense Woods","North of House","Clearing"}
+        };
+
+        private static Location _location = new Location() { Row = 1, Column = 1 };
+
+        private static string CurrentRoom
+        {
+            get
+            {
+                return _rooms[_location.Row, _location.Column];
+            }
+        }
     }
+
+	internal class Location
+	{
+		public int Row;
+		public int Column;
+
+		public override string ToString()
+		{
+			return $"{Row},{Column}";
+		}
+	}
 }
