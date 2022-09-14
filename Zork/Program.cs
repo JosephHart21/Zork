@@ -63,7 +63,7 @@ namespace Zork
 			switch (command)
 			{
 				case Commands.North when _location.Row < _rooms.GetLength(0) - 1:
-					_location.Column++;
+					_location.Row++;
                     didMove = true;
                     break;
 
@@ -102,9 +102,9 @@ namespace Zork
         }
 
         private static readonly Room[,] _rooms = {
-            { new Room("Rocky Trail"), new Room ("South of House"), new Room ("Canyon View") },
-            { new Room ("Forest"),new Room ("West of House"),new Room ("Behind House")},
-            { new Room ("Dense Woods"),new Room ("North of House"),new Room ("Clearing")}
+            {new Room("Rocky Trail"), new Room ("South of House"), new Room ("Canyon View")},
+            {new Room ("Forest"),new Room ("West of House"),new Room ("Behind House")},
+            {new Room ("Dense Woods"),new Room ("North of House"),new Room ("Clearing")}
         };
 
         private static Location _location = new Location() { Row = 1, Column = 1 };
