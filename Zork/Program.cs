@@ -25,10 +25,11 @@ namespace Zork
 			{
 				Console.WriteLine(CurrentRoom);
 
-				if (previousRoom != CurrentRoom)
+				if (previousRoom != CurrentRoom && !CurrentRoom.HasBeenVisited)
 				{
 					Console.WriteLine(CurrentRoom.Description);
 					previousRoom = CurrentRoom;
+					CurrentRoom.HasBeenVisited = true;
 				}
 
 				Console.Write(">");
