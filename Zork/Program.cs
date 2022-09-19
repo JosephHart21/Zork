@@ -6,15 +6,34 @@ namespace Zork
 {
 	class Program
 	{
+        private static Room CurrentRoom
+        {
+            get
+            {
+                return _rooms[_location.Row, _location.Column];
+            }
+        }
+
         static void Main()
         {
 			InitializeRoomDescriptions();
 			Console.WriteLine("Welcome to Zork!");
-			
+
+			Room previousRoom = null;
 			bool isRunning = true;
 			while (isRunning)
 			{
-				Console.Write($"You are in {CurrentRoom}\n> ");
+				Console.WriteLine(CurrentRoom);
+
+				if (previousRoom != CurrentRoom)
+				{
+					Console.WriteLine(CurrentRoom.Description);
+					previousRoom = CurrentRoom;
+				}
+
+				Console.Write(">");
+
+
 				string inputString = Console.ReadLine().Trim();
 				Commands command; command = ToCommand(inputString);
 				
@@ -86,7 +105,8 @@ namespace Zork
 			return didMove;
 		}
 
-        private static readonly Room[,] _rooms = {
+        private static readonly Room[,] _rooms = 
+		{
             {new Room("Rocky Trail"), new Room ("South of House"), new Room ("Canyon View")},
             {new Room ("Forest"),new Room ("West of House"),new Room ("Behind House")},
             {new Room ("Dense Woods"),new Room ("North of House"),new Room ("Clearing")}
@@ -95,14 +115,14 @@ namespace Zork
 		private static void InitializeRoomDescriptions()
 		{
 
-			Dictionary<string, Room> roomMap = new Dictionary<string, Room>();
+			var roomMap = new Dictionary<string, Room>();
 
 			foreach(Room room in _rooms) //Add all our rooms to the dictionary using their Name fields as the key
 			{
 				roomMap[room.Name] = room; //same as .Add();
 			}
 
-			roomMap["Rocky Trail"].Description = "You are on a rock-stream trail.";
+			roomMap["Rocky Trail"].Description = "You are on a rock-strewn trail.";
             roomMap["South of House"].Description = "You are facing the south side of a white house. There is no door/";
             roomMap["Canyon View"].Description = "You are at the top of the Great Canyon on its south wall.";
             roomMap["Forest"].Description = "This is a forest, with trees in all directions around you.";
@@ -115,13 +135,6 @@ namespace Zork
 
         private static Location _location = new Location() { Row = 1, Column = 1 };
 
-        private static Room CurrentRoom
-        {
-            get
-            {
-				return _rooms[_location.Row, _location.Column];
-            }
-        }
     }
 
 	internal class Location
