@@ -34,7 +34,6 @@ namespace Zork
 
 				Console.Write(">");
 
-
 				string inputString = Console.ReadLine().Trim();
 				Commands command; command = ToCommand(inputString);
 				
