@@ -13,7 +13,7 @@ namespace Zork
         public void Run(string[] args)
         {
             string roomsFilename = args.Length > 0 ? args[0] : "Rooms.json";
-            InitializeRoomDescriptions($@"Content\{roomsFilename}");
+            InitializeRooms($@"Content\{roomsFilename}");
 
             Room previousRoom = null;
             bool isRunning = true;
@@ -69,10 +69,9 @@ namespace Zork
             }
         }
 
-        private void InitializeRoomDescriptions(string roomsFilename)
+        private void InitializeRooms(string roomsFilename)
         {
-            World.Rooms = JsonConvert.DeserializeObject<Room[]>(File.ReadAllText(roomsFilename));
-
+            //World.Rooms = JsonConvert.DeserializeObject<Room[]>(File.ReadAllText(roomsFilename));
         }
 
         static Commands ToCommand(string commmandString)
