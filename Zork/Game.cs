@@ -12,7 +12,7 @@ namespace Zork
 
         public void Run(string[] args)
         {
-            string roomsFilename = args.Length > 0 ? args[0] : "Rooms.txt";
+            string roomsFilename = args.Length > 0 ? args[0] : "Rooms.json";
             InitializeRoomDescriptions($@"Content\{roomsFilename}");
 
             Room previousRoom = null;
@@ -69,12 +69,6 @@ namespace Zork
             }
         }
 
-        private enum Fields
-        {
-            Name = 0,
-            Description = 1
-        }
-
         private void InitializeRoomDescriptions(string roomsFilename)
         {
             var RoomMap = new Dictionary<string, Room>();
@@ -83,24 +77,10 @@ namespace Zork
                 RoomMap[room.Name] = room;
             }
 
-            const string fieldDelimiter = "##";
-            const int expectedFieldCount = 2;
-
-            string[] lines = File.ReadAllLines(roomsFilename);
-
-            foreach(string line in lines)
+            Room[] rooms = JsonConvert.DeserializeObject<Room[]>(File.ReadAllText(roomsFilename));
+            foreach(Room room in rooms)
             {
-                string[] fields = line.Split(fieldDelimiter);
-                if (fields.Length != expectedFieldCount)
-                {
-                    throw new InvalidDataException("Invalid record.");
-                }
-
-                string name = fields[(int)Fields.Name];
-                string description = fields[(int)Fields.Description];
-
-                RoomMap[name].Description = description;
-
+                RoomMap[rooms.Name].Description = room.Description;
             }
         }
 
