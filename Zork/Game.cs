@@ -1,24 +1,21 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Newtonsoft.Json;
 
 namespace Zork
 {
     internal class Game
     {
-
         public World World { get; set; }
-
         public Player Player { get; set; }
 
-
-        public void Run()
+        public void Run(string[] args)
         {
-            InitializeRoomDescriptions();
+            string roomsFilename = args.Length > 0 ? args[0] : "Rooms.txt";
+            InitializeRoomDescriptions($@"Content\{roomsFilename}");
 
             Room previousRoom = null;
-
             bool isRunning = true;
 
             while (isRunning)
@@ -72,25 +69,39 @@ namespace Zork
             }
         }
 
-        private void InitializeRoomDescriptions()
+        private enum Fields
         {
+            Name = 0,
+            Description = 1
+        }
 
-            var roomMap = new Dictionary<string, Room>();
-
-            foreach (Room room in World.Rooms) //Add all our rooms to the dictionary using their Name fields as the key
+        private void InitializeRoomDescriptions(string roomsFilename)
+        {
+            var RoomMap = new Dictionary<string, Room>();
+            foreach (Room room in World.Rooms)
             {
-                roomMap[room.Name] = room; //same as .Add();
+                RoomMap[room.Name] = room;
             }
 
-            roomMap["Rocky Trail"].Description      = "You are on a rock-strewn trail.";
-            roomMap["South of House"].Description   = "You are facing the south side of a white house. There is no door/";
-            roomMap["Canyon View"].Description      = "You are at the top of the Great Canyon on its south wall.";
-            roomMap["Forest"].Description           = "This is a forest, with trees in all directions around you.";
-            roomMap["West of House"].Description    = "This is an open field west of a white house, wih a boarded front door/";
-            roomMap["Behind House"].Description     = "You are behind the white house. In one corner of teh house there is/";
-            roomMap["Dense Woods"].Description      = "This is a dimly lit forest, with large trees all around. To the east/";
-            roomMap["North of House"].Description   = "You are facing the north side of a white house. There is no door here/";
-            roomMap["Clearing"].Description         = "You are in a clearing, with a forest surrounding you on the west and/";
+            const string fieldDelimiter = "##";
+            const int expectedFieldCount = 2;
+
+            string[] lines = File.ReadAllLines(roomsFilename);
+
+            foreach(string line in lines)
+            {
+                string[] fields = line.Split(fieldDelimiter);
+                if (fields.Length != expectedFieldCount)
+                {
+                    throw new InvalidDataException("Invalid record.");
+                }
+
+                string name = fields[(int)Fields.Name];
+                string description = fields[(int)Fields.Description];
+
+                RoomMap[name].Description = description;
+
+            }
         }
 
         static Commands ToCommand(string commmandString)
