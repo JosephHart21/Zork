@@ -8,13 +8,13 @@ namespace Zork
     {
         public Room[,] Rooms
         {
-            get
-            {
-                return _rooms;
-            }
+            get;
         }
 
-        private static readonly Room[,] _rooms;
+        public World(Room[,] rooms)
+        {
+            Rooms = rooms;
+        }
 
     }
 

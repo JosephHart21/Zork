@@ -12,8 +12,8 @@ namespace Zork
 
         public void Run(string[] args)
         {
-            string roomsFilename = args.Length > 0 ? args[0] : "Rooms.json";
-            InitializeRooms($@"Content\{roomsFilename}");
+
+            Player = new Player(World);
 
             Room previousRoom = null;
             bool isRunning = true;
@@ -69,9 +69,9 @@ namespace Zork
             }
         }
 
-        private void InitializeRooms(string roomsFilename)
+        public Game(World world)
         {
-            //World.Rooms = JsonConvert.DeserializeObject<Room[]>(File.ReadAllText(roomsFilename));
+            World = world;
         }
 
         static Commands ToCommand(string commmandString)
