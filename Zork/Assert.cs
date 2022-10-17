@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Zork
 {
-    internal class Assert
+    public class Assert
     {
         [Conditional("DEBUG")]
         public static void IsTrue(bool expression, string message = null)

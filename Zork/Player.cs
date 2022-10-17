@@ -4,57 +4,43 @@ using System.Text;
 
 namespace Zork
 {
-    internal class Player
+    public class Player
     {
 
         public int Score { get; }
         public int Moves { get; }
-
-        public bool Move(Commands command)
-        {
-            bool didMove = false;
-            switch (command)
-            {
-                case Commands.North when _location.Row < _world.Rooms.GetLength(0) - 1:
-                    _location.Row++;
-                    didMove = true;
-                    break;
-
-                case Commands.South when _location.Row > 0:
-                    _location.Row--;
-                    didMove = true;
-                    break;
-
-                case Commands.East when _location.Column < _world.Rooms.GetLength(1) - 1:
-                    _location.Column++;
-                    didMove = true;
-                    break;
-
-                case Commands.West when _location.Column > 0:
-                    _location.Column--;
-                    didMove = true;
-                    break;
-
-            }
-            return didMove;
-        }
-
         public Room CurrentRoom
         {
-            get
-            {
-                return _world.Rooms[_location.Row, _location.Column];
-            }
+            get => _currentRoom;
+            set => _currentRoom = value;
         }
 
-        public Player(World world)
+        public bool Move(Directions direction)
         {
-            _world = world;
+            bool didMove = _currentRoom.Neighbors.TryGetValue(direction, out Room neighbor);
+            if (didMove)
+            {
+                CurrentRoom = neighbor;
+            }
+
+            return didMove;
 
         }
 
         private World _world;
-        private static (int Row, int Column) _location = (1, 1);
+        private Room _currentRoom;
+
+        public Player(World world, string startingLocation)
+        {
+            _world = world;
+
+            if (_world.RoomsByName.TryGetValue(startingLocation, out _currentRoom) == false)
+            {
+                throw new Exception($"Invalid starting location: {startingLocation}");
+            }
+
+        }
 
     }
+
 }

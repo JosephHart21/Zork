@@ -5,16 +5,13 @@ using Newtonsoft.Json;
 
 namespace Zork
 {
-    internal class Game
+    public class Game
     {
         public World World { get; set; }
         public Player Player { get; set; }
 
         public void Run(string[] args)
         {
-
-            Player = new Player(World);
-
             Room previousRoom = null;
             bool isRunning = true;
 
@@ -50,9 +47,9 @@ namespace Zork
                     case Commands.West:
                     case Commands.South:
                     case Commands.East:
-                        if (Player.Move(command))
+                        if (Player.Move((Directions)command))
                         {
-                            outputString = $"You moved {command}.";
+                            outputString = $"You moved {(Directions)command}.";
                         }
                         else
                         {
@@ -69,9 +66,10 @@ namespace Zork
             }
         }
 
-        public Game(World world)
+        public Game(World world, string startingLocation)
         {
             World = world;
+            Player = new Player(World, startingLocation);
         }
 
         static Commands ToCommand(string commmandString)
