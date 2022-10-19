@@ -9,6 +9,8 @@ namespace Zork
 
         public int Score { get; }
         public int Moves { get; }
+        public List<Item> Inventory { get; set; }
+
         public Room CurrentRoom
         {
             get => _currentRoom;

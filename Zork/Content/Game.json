@@ -7,7 +7,17 @@
         "Description": "This is an open field west of a white house, with a boarded front door.",
         "NeighborNames": {
 
-        }
+        },
+        "Inventory": [
+          {
+            "Name": "Welcome Mat",
+            "Description": "A rubber mat witht he words 'Welcome to Zork!' written on it."
+          },
+          {
+            "Name": "Mail Box",
+            "Description": "A small mailbox."
+          }
+        ]
       },
       {
         "Name": "South of House",
