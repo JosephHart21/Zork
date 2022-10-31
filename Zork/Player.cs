@@ -6,7 +6,6 @@ namespace Zork
 {
     public class Player
     {
-
         public int Score { get; }
         public int Moves { get; }
         public List<Item> Inventory { get; set; }
@@ -26,7 +25,6 @@ namespace Zork
             }
 
             return didMove;
-
         }
 
         private World _world;

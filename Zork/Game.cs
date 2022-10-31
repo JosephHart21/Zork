@@ -29,7 +29,13 @@ namespace Zork
                 Console.Write(">");
 
                 string inputString = Console.ReadLine().Trim();
-                Commands command; command = ToCommand(inputString);
+                const char separator = ' ';
+                string[] commandTokens = inputString.Split(separator);
+
+                if (commandTokens.Length == 0){ continue; }
+                else if (commandTokens.Length == 1) { }
+
+                Commands command; command = ToCommand(commandTokens[0]);
 
                 string outputString;
                 switch (command)
@@ -55,6 +61,11 @@ namespace Zork
                         {
                             outputString = "The way is shut.";
                         }
+                        break;
+
+                    case Commands.Take:
+                        break;
+                    case Commands.Drop:
                         break;
 
 

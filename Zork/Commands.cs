@@ -8,6 +8,9 @@ namespace Zork
 		South,
 		West,
 		East,
+		Inventory,
+		Take,
+		Drop,
 		Unknown
 	}
 
