@@ -36,7 +36,40 @@ namespace Zork.Common
             return didMove;
         }
 
+        public void DropItem(string itemName)
+        {
+            Item itemToDrop = null;
+            foreach (Item item in Inventory)
+            {
+                if (itemName == item.Name)
+                {
+                    itemToDrop = item;
+                    break;
+                }
+            }
+
+            if (itemToDrop != null)
+            {
+                CurrentRoom.Inventory.Add(itemToDrop);
+                Inventory.Remove(itemToDrop);
+            }
+        }
+
+        public int Moves
+        {
+            get
+            {
+                return _moves;
+            }
+            set
+            {
+                _moves = value;
+            }
+        }
+
+
         private World _world;
         private Room _currentRoom;
+        private int _moves;
     }
 }
