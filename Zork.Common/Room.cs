@@ -81,6 +81,16 @@ namespace Zork.Common
             InventoryNames = null;
         }
 
+        public string SpotItems()
+        {
+            string CSV = "";
+            foreach (Item item in Inventory)
+            {
+                CSV += $"There is a {item.Name} here.\n";
+            }
+            return CSV;
+        }
+
         public override string ToString() => Name;
     }
 }

@@ -5,6 +5,9 @@ namespace Zork.Common
 {
     public class Player
     {
+
+        public IOutputService Output { get; private set; }
+
         public Room CurrentRoom
         {
             get => _currentRoom;
@@ -36,7 +39,7 @@ namespace Zork.Common
             return didMove;
         }
 
-        public void DropItem(string itemName)
+        public bool DropItem(string itemName)
         {
             Item itemToDrop = null;
             foreach (Item item in Inventory)
@@ -52,7 +55,23 @@ namespace Zork.Common
             {
                 CurrentRoom.Inventory.Add(itemToDrop);
                 Inventory.Remove(itemToDrop);
+                return true;
             }
+            else return false;
+        }
+
+        public string CheckInventory()
+        {
+            string CSV = "";
+            foreach(Item item in Inventory)
+            {
+                CSV += $"{item.Name}\n";
+            }
+            if (string.IsNullOrEmpty(CSV))
+            {
+                CSV = "No Items";
+            }
+            return CSV;
         }
 
         public int Moves

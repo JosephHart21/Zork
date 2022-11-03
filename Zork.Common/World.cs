@@ -34,6 +34,27 @@ namespace Zork.Common
             }
         }
 
+        public bool TakeItemFromRoom(string itemName, Room currentRoom, Player player)
+        {
+            Item itemToTake = null;
+            foreach (Item item in currentRoom.Inventory)
+            {
+                if (itemName == item.Name)
+                {
+                    itemToTake = item;
+                    break;
+                }
+            }
+            if (itemToTake != null)
+            {
+                currentRoom.Inventory.Remove(itemToTake);
+                player.Inventory.Add(itemToTake);
+                return true;
+            }
+            else return false;
+ 
+        }
+
         [OnDeserialized]
         private void OnDeserialized(StreamingContext streamingContext)
         {

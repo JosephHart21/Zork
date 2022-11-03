@@ -28,10 +28,11 @@ namespace Zork.Common
                 if (previousRoom != Player.CurrentRoom)
                 {
                     Output.WriteLine(Player.CurrentRoom.Description);
+                    Output.WriteLine(Player.CurrentRoom.SpotItems());
                     previousRoom = Player.CurrentRoom;
                 }
 
-                Output.Write("> ");
+                Output.Write("\n> ");
 
                 string inputString = Console.ReadLine().Trim();
                 // might look like:  "LOOK", "TAKE MAT", "QUIT"
@@ -66,6 +67,8 @@ namespace Zork.Common
 
                     case Commands.Look:
                         outputString = Player.CurrentRoom.Description;
+                        outputString += "\n";
+                        outputString += Player.CurrentRoom.SpotItems();
                         break;
 
                     case Commands.North:
@@ -75,7 +78,7 @@ namespace Zork.Common
                         Directions direction = (Directions)command;
                         if (Player.Move(direction))
                         {
-                            outputString = $"You moved {direction}.";
+                            outputString = $"You moved {direction}";
                         }
                         else
                         {
@@ -84,22 +87,34 @@ namespace Zork.Common
                         break;
 
                     case Commands.Take:
-                        //TODO
-                        outputString = null;
+                        if (string.IsNullOrEmpty(subject))
+                        {
+                            outputString = "You must clarify what you wish to take";
+                            break;
+                        }
+                        if (World.TakeItemFromRoom(subject, Player.CurrentRoom, Player)) 
+                            outputString = $"You take {subject}";
+                        else outputString = "There is no such thing";
+
                         break;
 
                     case Commands.Drop:
-                        //TODO
-                        outputString = null;
+                        if (string.IsNullOrEmpty(subject))
+                        {
+                            outputString = "You must clarify what you wish to drop";
+                            break;
+                        }
+                        if (Player.DropItem(subject)) 
+                            outputString = $"You dropped {subject}";
+                        else outputString = "You have no such thing";
                         break;
 
                     case Commands.Inventory:
-                        //TODO
-                        outputString = null;
+                        outputString = Player.CheckInventory();
                         break;
 
                     default:
-                        outputString = "Unknown command.";
+                        outputString = "Unknown command";
                         break;
                 }
 
