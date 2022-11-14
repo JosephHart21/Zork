@@ -5,16 +5,13 @@ namespace Zork.Common
 {
     public class Player
     {
-
-        public IOutputService Output { get; private set; }
-
         public Room CurrentRoom
         {
             get => _currentRoom;
             set => _currentRoom = value;
         }
 
-        public List<Item> Inventory { get; }
+        public IEnumerable<Item> Inventory => _inventory;
 
         public Player(World world, string startingLocation)
         {
@@ -25,7 +22,7 @@ namespace Zork.Common
                 throw new Exception($"Invalid starting location: {startingLocation}");
             }
 
-            Inventory = new List<Item>();
+            _inventory = new List<Item>();
         }
 
         public bool Move(Directions direction)
@@ -39,56 +36,26 @@ namespace Zork.Common
             return didMove;
         }
 
-        public bool DropItem(string itemName)
+        public void AddItemToInventory(Item itemToAdd)
         {
-            Item itemToDrop = null;
-            foreach (Item item in Inventory)
+            if (_inventory.Contains(itemToAdd))
             {
-                if (itemName == item.Name)
-                {
-                    itemToDrop = item;
-                    break;
-                }
+                throw new Exception($"Item {itemToAdd} already exists in inventory.");
             }
 
-            if (itemToDrop != null)
-            {
-                CurrentRoom.Inventory.Add(itemToDrop);
-                Inventory.Remove(itemToDrop);
-                return true;
-            }
-            else return false;
+            _inventory.Add(itemToAdd);
         }
 
-        public string CheckInventory()
+        public void RemoveItemFromInventory(Item itemToRemove)
         {
-            string CSV = "";
-            foreach(Item item in Inventory)
+            if (_inventory.Remove(itemToRemove) == false)
             {
-                CSV += $"{item.Name}\n";
-            }
-            if (string.IsNullOrEmpty(CSV))
-            {
-                CSV = "No Items";
-            }
-            return CSV;
-        }
-
-        public int Moves
-        {
-            get
-            {
-                return _moves;
-            }
-            set
-            {
-                _moves = value;
+                throw new Exception("Could not remove item from inventory.");
             }
         }
 
-
-        private World _world;
+        private readonly World _world;
         private Room _currentRoom;
-        private int _moves;
+        private readonly List<Item> _inventory;
     }
 }
