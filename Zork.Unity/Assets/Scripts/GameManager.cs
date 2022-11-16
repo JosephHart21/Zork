@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     {
         TextAsset gameJson = Resources.Load<TextAsset>("GameJson");
         _game = JsonConvert.DeserializeObject<Game>(gameJson.text);
-        //_game.Run(Input,Output);
+        _game.Run(Input,Output);
     }
 
     private Game _game;
