@@ -22,6 +22,13 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         InputService.SetFocus();
+        LocationText.text = _game.Player.CurrentRoom.Name;
+    }
+
+    //Where does this go lol
+    private void Player_LocationChanged(object sender, Room location)
+    {
+        LocationText.text = location.Name;
     }
 
     private void Update()
