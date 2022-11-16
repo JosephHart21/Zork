@@ -9,14 +9,36 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI ScoreText;
     [SerializeField] TextMeshProUGUI MovesText;
 
-    [SerializeField] private UnityInputService Input;
-    [SerializeField] private UnityOutputService Output;
+    [SerializeField] private UnityInputService InputService;
+    [SerializeField] private UnityOutputService OutputService;
 
     private void Awake()
     {
         TextAsset gameJson = Resources.Load<TextAsset>("GameJson");
         _game = JsonConvert.DeserializeObject<Game>(gameJson.text);
-        _game.Run(Input,Output);
+        _game.Run(InputService,OutputService);
+    }
+
+    private void Start()
+    {
+        InputService.SetFocus();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            InputService.ProcessInput();
+            InputService.SetFocus();
+        }
+        if (_game.IsRunning == false)
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
     }
 
     private Game _game;
