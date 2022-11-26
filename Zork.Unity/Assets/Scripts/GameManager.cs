@@ -23,12 +23,22 @@ public class GameManager : MonoBehaviour
     {
         InputService.SetFocus();
         LocationText.text = _game.Player.CurrentRoom.Name;
+        _game.Player.LocationChanged += Player_LocationChanged;
+        _game.Player.ScoreChanged += Player_ScoreChanged;
+        _game.Player.MoveChanged += Player_MoveChanged;
     }
 
-    //Where does this go lol
     private void Player_LocationChanged(object sender, Room location)
     {
         LocationText.text = location.Name;
+    }
+    private void Player_ScoreChanged(object sender, int score)
+    {
+        ScoreText.text = "Score: " + score.ToString();
+    }
+    private void Player_MoveChanged(object sender, int moves)
+    {
+        MovesText.text = "Moves: " + moves.ToString();
     }
 
     private void Update()

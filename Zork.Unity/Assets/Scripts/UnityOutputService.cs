@@ -25,6 +25,7 @@ public class UnityOutputService : MonoBehaviour, IOutputService
         var textLine = Instantiate(TextLinePrefab, ContentTransform);
         textLine.text = message;
         _entries.Add(textLine.gameObject);
+        Instantiate(NewLinePrefab, ContentTransform);
     }
 
     private List<GameObject> _entries = new List<GameObject>(0);
