@@ -9,3 +9,9 @@ Zork.Unity/Temp
 Zork.Unity/.vsconfig
 Zork.Unity/*.sln
 Zork.Unity/*.csproj
+Final/bin
+Final/obj
+Final/Final/bin
+Final/Final/obj
+Final/Final.Client/bin
+Final/Final.Client/obj
