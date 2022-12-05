@@ -15,3 +15,9 @@ Final/Final/bin
 Final/Final/obj
 Final/Final.Client/bin
 Final/Final.Client/obj
+Final/Final.Unity/Library
+Final/Final.Unity/Logs
+Final/Final.Unity/Temp
+Final/Final.Unity/.vsconfig
+Final/Final.Unity/*.sln
+Final/Final.Unity/*.csproj
