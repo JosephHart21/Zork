@@ -1,4 +1,5 @@
-﻿namespace Final.Common
+﻿using System;
+namespace Final.Common
 {
     public interface OutputAPI
     {

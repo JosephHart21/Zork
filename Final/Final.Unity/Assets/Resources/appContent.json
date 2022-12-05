@@ -1,0 +1,29 @@
+{
+  "inventory": {
+    "Storage": [
+
+      {
+        "Name": "Sword",
+        "Description": "Shines with your reflection. Could cut stone."
+      },
+      {
+        "Name": "Phone",
+        "Description": "Used for telecomunication. Doesn't work."
+      },
+      {
+        "Name": "Bike",
+        "Description": "A good sports bike. Has a spare wheel."
+      },
+      {
+        "Name": "Bike",
+        "Description": ""
+      },
+      {
+        "Name": "Sword",
+        "Description": ""
+      }
+
+
+    ]
+  }
+}

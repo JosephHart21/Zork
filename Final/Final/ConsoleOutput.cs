@@ -1,4 +1,5 @@
-﻿using Final.Common;
+﻿using System;
+using Final.Common;
 
 namespace Final.Cli
 {
