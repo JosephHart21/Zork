@@ -16,6 +16,8 @@ namespace Final.Common
 
         public Inventory inventory { get; set; }
 
+        public event EventHandler<string> Organized;
+
 
         public void Run(InputAPI input, OutputAPI output)
         {
@@ -27,6 +29,7 @@ namespace Final.Common
             inventory.ItemsByCount = Organizer.OrganizeStorage(inventory.Storage);
 
             PrintInventory();
+            Organized?.Invoke(this, "");
 
         }
 

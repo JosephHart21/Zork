@@ -13,13 +13,12 @@ public class OutputUnity : MonoBehaviour, OutputAPI
 
     public void WriteLine(object obj) => ParseString(obj.ToString());
 
-
     public void WriteLine(string message) => ParseString(message.ToString());
 
 
     public void ParseString(string message)
     {
-        DescriptionText.text += message;
+        DescriptionText.text = message;
     }
 
 }

@@ -7,4 +7,5 @@ using System;
 public class InputUnity : MonoBehaviour, InputAPI
 {
     public event EventHandler<string> InputTaken;
+
 }

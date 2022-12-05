@@ -15,6 +15,10 @@
         "Description": "A good sports bike. Has a spare wheel."
       },
       {
+        "Name": "Pan",
+        "Description": "Frying pan. Now you can make eggs."
+      },
+      {
         "Name": "Bike",
         "Description": ""
       },
@@ -22,7 +26,6 @@
         "Name": "Sword",
         "Description": ""
       }
-
 
     ]
   }
