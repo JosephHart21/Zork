@@ -8,4 +8,9 @@ public class InputUnity : MonoBehaviour, InputAPI
 {
     public event EventHandler<string> InputTaken;
 
+    public void OnInput()
+    {
+        InputTaken?.Invoke(this, "");
+    }
+
 }

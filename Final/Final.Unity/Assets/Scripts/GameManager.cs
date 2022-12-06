@@ -4,6 +4,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Final.Common;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Sprite[] Icons = new Sprite[3];
 
     [SerializeField] private Image[] Slots = new Image[9];
+
+    [SerializeField] private TextMeshProUGUI[] Counters = new TextMeshProUGUI[9];
 
     [SerializeField] private Dictionary<Item, Sprite> Items = new Dictionary<Item, Sprite>();
 
@@ -58,19 +61,52 @@ public class GameManager : MonoBehaviour
                     break;
             }
 
+            UpdateCounter(index, item.Value);
             ++index;
         }
     }
 
     public void UpdateIcon(int index, Sprite sprite)
     {
-        Debug.Log($"Index: {index}\nSprite: {sprite.name}");
         Slots[index].sprite = sprite;
     }
 
-    public void HoverEvent()
+    public void UpdateCounter(int index, int sum)
     {
-        outputU.Write("");
+        Counters[index].GetComponent<TextMeshProUGUI>().enabled = true;
+        Counters[index].text = sum.ToString();
     }
 
+    public void HoverEvent(Image slot)
+    {
+        try
+        {
+            Item key = NonGeneric.KeyByValue(Items, slot.sprite);
+            outputU.Write(key.Description);
+        }
+        catch
+        {
+            ;
+        }
+
+    }
+
+}
+
+public static class NonGeneric
+{
+    public static T KeyByValue<T, W>(this Dictionary<T, W> dict, W val)
+    {
+        T key = default;
+        foreach (KeyValuePair<T, W> pair in dict)
+        {
+            if (EqualityComparer<W>.Default.Equals(pair.Value, val))
+            {
+                key = pair.Key;
+                break;
+            }
+        }
+
+        return key;
+    }
 }

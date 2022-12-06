@@ -15,6 +15,8 @@ namespace Final.Cli
             const string contentAddress = @"..\..\..\Content\appContent.json";
             App app = JsonConvert.DeserializeObject<App>(File.ReadAllText(contentAddress));
 
+            output.WriteLine("Type 'Q' to quit\nType item name to read description\n");
+
             app.Run(input, output);
 
             while (app.running)
@@ -22,9 +24,8 @@ namespace Final.Cli
                 output.WriteLine("");
                 app.output.Write("> ");
                 input.TakeInput();
-
             }
-
+            
             output.WriteLine("You quit the app.");
 
         }

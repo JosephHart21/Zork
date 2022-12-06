@@ -35,7 +35,6 @@ namespace Final.Common
 
         public void PrintInventory()
         {
-            output.WriteLine("");
             foreach (var key in inventory.ItemsByCount)
             {
                 output.WriteLine($"{key.Value} of {key.Key.Name}");
@@ -51,9 +50,14 @@ namespace Final.Common
             inventory.ByCountToName();
             var name = input.Trim().ToLower();
 
-            if (inventory.ItemsByName.ContainsKey(input))
+            if (inventory.ItemsByName.ContainsKey(name))
             {
-                output.WriteLine($"{inventory.ItemsByName[input].Description}");
+                output.WriteLine($"{inventory.ItemsByName[name].Description}");
+            }
+            else if (name == "q")
+            {
+                output.WriteLine("You quit the program.");
+                Environment.Exit(0);
             }
             else
             {
